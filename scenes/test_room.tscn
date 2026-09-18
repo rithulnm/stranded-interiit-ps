@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dopqbao4jpy8v"]
+
+[ext_resource type="PackedScene" uid="uid://c8fwqn2n2h55c" path="res://scenes/player.tscn" id="1_im37l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_im37l"]
+size = Vector2(654, 20)
+
+[sub_resource type="Gradient" id="Gradient_im37l"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4adyp"]
+gradient = SubResource("Gradient_im37l")
+
+[node name="Floor" type="StaticBody2D" unique_id=1749803155]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=579105597]
+shape = SubResource("RectangleShape2D_im37l")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=228617236]
+offset_left = -326.0
+offset_top = -9.0
+offset_right = 322.0
+offset_bottom = 64.0
+texture = SubResource("GradientTexture2D_4adyp")
+
+[node name="Player" parent="." unique_id=1413501034 instance=ExtResource("1_im37l")]
+position = Vector2(2, -43)
+dash_duration = 0.15
+glide_gravity_mult = 0.3
+acceleration = 1500.0
+friction = 1500.0
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1444893257]
