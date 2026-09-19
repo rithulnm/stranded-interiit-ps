@@ -5,7 +5,6 @@ extends CharacterBody2D
 @export var gravity: float = 1500.0
 @export var dash_speed: float = 500.0
 @export var dash_duration: float = 0.15
-@export var glide_gravity_mult: float = 0.3
 @export var acceleration: float = 1500.0
 @export var friction: float = 1500.0
 
@@ -14,6 +13,8 @@ extends CharacterBody2D
 var is_dashing: bool = false
 var dash_timer: float = 0.0
 var dash_direction: float = 0.0
+var jumps_used: int = 0
+var max_jumps: int = 2
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -28,27 +29,27 @@ func _physics_process(delta: float) -> void:
 		# Horizontal movement
 		if direction != 0:
 			velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
+			$Sprite2D.flip_h = direction < 0
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 
-		# Gravity (with glide modifier)
+		# Gravity
 		if not is_on_floor():
-			if Input.is_action_pressed("glide") and velocity.y > 0:
-				velocity.y += gravity * glide_gravity_mult * delta
-			else:
-				velocity.y += gravity * delta
+			velocity.y += gravity * delta
 		else:
 			velocity.y = 0
+			jumps_used = 0  # reset on landing
 
-		# Jump
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		# Jump / Double Jump
+		if Input.is_action_just_pressed("jump") and jumps_used < max_jumps:
 			velocity.y = jump_velocity
+			jumps_used += 1
 
 		# Dash
 		if Input.is_action_just_pressed("dash") and not is_dashing:
 			var dash_dir = direction if direction != 0 else (1.0 if not flip_h() else -1.0)
 			start_dash(dash_dir)
-			
+
 		# Shoot
 		if Input.is_action_just_pressed("shoot"):
 			shoot()
