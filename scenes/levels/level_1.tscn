@@ -1,0 +1,62 @@
+[gd_scene format=4 uid="uid://c6dd4b8ee5ch2"]
+
+[ext_resource type="Texture2D" uid="uid://cgn1cemod87so" path="res://assets/tileset/ground.png" id="1_bswci"]
+[ext_resource type="Texture2D" uid="uid://dvmul7n47obcm" path="res://assets/tileset/platform.png" id="2_rus8k"]
+[ext_resource type="PackedScene" uid="uid://c8fwqn2n2h55c" path="res://scenes/player.tscn" id="3_rus8k"]
+[ext_resource type="Script" uid="uid://c5osg0o1jxr4u" path="res://scripts/fall_zone.gd" id="4_5xbjy"]
+[ext_resource type="PackedScene" uid="uid://ck8t0oqfkagja" path="res://scenes/hud.tscn" id="5_4nkto"]
+[ext_resource type="PackedScene" uid="uid://dew0wisjag2ym" path="res://scenes/guard.tscn" id="6_fcfvj"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5xbjy"]
+texture = ExtResource("1_bswci")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4nkto"]
+texture = ExtResource("2_rus8k")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+
+[sub_resource type="TileSet" id="TileSet_fcfvj"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 2
+sources/0 = SubResource("TileSetAtlasSource_5xbjy")
+sources/1 = SubResource("TileSetAtlasSource_4nkto")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rus8k"]
+
+[node name="Level1" type="Node2D" unique_id=590013251]
+position = Vector2(1, 0)
+
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=266085869]
+position = Vector2(-429, 0)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=795255008]
+tile_map_data = PackedByteArray("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")
+tile_set = SubResource("TileSet_fcfvj")
+
+[node name="Player" parent="." unique_id=1413501034 groups=["player"] instance=ExtResource("3_rus8k")]
+position = Vector2(-425, -24)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=253501078]
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+
+[node name="HUD" parent="Player" unique_id=1806730183 instance=ExtResource("5_4nkto")]
+
+[node name="FallZone" type="Area2D" parent="." unique_id=1817698660]
+script = ExtResource("4_5xbjy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FallZone" unique_id=827117011]
+position = Vector2(9, 1289)
+shape = SubResource("WorldBoundaryShape2D_rus8k")
+
+[node name="Guard" parent="." unique_id=1669241884 instance=ExtResource("6_fcfvj")]
+position = Vector2(0, -136)
+
+[connection signal="health_changed" from="Player" to="Player/HUD/HealthBar" method="_on_player_health_changed"]
+[connection signal="body_entered" from="FallZone" to="FallZone" method="_on_body_entered"]
+
+[editable path="Player/HUD"]

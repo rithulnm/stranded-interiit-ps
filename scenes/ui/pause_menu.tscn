@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://sr3aqgk1k0l6"]
+
+[ext_resource type="Texture2D" uid="uid://dvmul7n47obcm" path="res://assets/tileset/platform.png" id="1_0lmf7"]
+[ext_resource type="Script" uid="uid://bkvd2na003phg" path="res://scripts/pause_menu.gd" id="1_f6eus"]
+[ext_resource type="Texture2D" uid="uid://cgn1cemod87so" path="res://assets/tileset/ground.png" id="2_f6eus"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=268604171]
+process_mode = 3
+script = ExtResource("1_f6eus")
+
+[node name="Panel" type="Control" parent="." unique_id=1732373441]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel" unique_id=2066167521]
+modulate = Color(1, 1, 1, 0.29803923)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Panel" unique_id=90843201]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -184.0
+offset_right = 60.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="TextureButton" parent="Panel/ButtonContainer" unique_id=954953477]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture_normal = ExtResource("1_0lmf7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="RestartButton" type="TextureButton" parent="Panel/ButtonContainer" unique_id=2016123753]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture_normal = ExtResource("1_0lmf7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="QuitToMenuButton" type="TextureButton" parent="Panel/ButtonContainer" unique_id=232922411]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture_normal = ExtResource("2_f6eus")
+ignore_texture_size = true
+stretch_mode = 0
