@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://wa5g3732aipk"]
+
+[ext_resource type="Script" uid="uid://bopeo2s36btxe" path="res://scripts/bubble.gd" id="1_2vdav"]
+[ext_resource type="Texture2D" uid="uid://1aimwkis2w1y" path="res://icon.svg" id="2_pm753"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b4vvx"]
+radius = 17.720045
+
+[node name="Bubble" type="Area2D" unique_id=1172592154]
+collision_layer = 16
+script = ExtResource("1_2vdav")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=735960508]
+shape = SubResource("CircleShape2D_b4vvx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1769918212]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_pm753")

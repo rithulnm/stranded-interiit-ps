@@ -15,12 +15,22 @@ signal died
 @export var bullet_scene: PackedScene
 @export var max_health: int = 100
 
+# --- Shadow settings ---
+@export var shadow_max_distance: float = 400.0
+@export var shadow_min_scale: float = 0.3
+@export var shadow_max_alpha: float = 0.5
+@export var shadow_min_alpha: float = 0.1
+
+var base_walk: float
+var base_sprint: float
+var base_max_health: int
 var current_health: int = max_health
 var is_dashing: bool = false
 var dash_timer: float = 0.0
 var dash_direction: float = 0.0
 var jumps_used: int = 0
 var max_jumps: int = 2
+var is_shooting: bool = false
 
 var hold_time: float = 0.0
 var anim_state: String = "idle"   # idle, run_start, run_loop, run_stop
@@ -28,9 +38,23 @@ var air_phase: String = ""        # "", squash, extrude, fall, land
 var was_on_floor: bool = true
 
 func _ready() -> void:
+	add_to_group("player")
+	base_walk = walk_speed
+	base_sprint = sprint_speed
+	base_max_health = max_health
+	GameState.upgrade_bought.connect(_on_upgrade_bought)
+	apply_upgrades()
+	current_health = max_health
+	health_changed.emit(current_health, max_health)
+	
 	$Sprite2D.animation_finished.connect(_on_animation_finished)
 	$Sprite2D.play("idle")
-
+	$Shadow.top_level = true# safety net in case it wasn't set in the editor
+	$GroundRay.collide_with_areas = false
+	$GroundRay.collide_with_bodies = true  
+	$GroundRay.hit_from_inside = true
+	GameState.add_bubbles(50)
+	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 
@@ -64,6 +88,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump") and jumps_used < max_jumps:
 			velocity.y = jump_velocity
 			jumps_used += 1
+			is_shooting = false
 			air_phase = "squash"
 			$Sprite2D.play("jump_squash")
 
@@ -76,8 +101,27 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	update_animation(direction)
+	update_shadow()
+
+func update_shadow() -> void:
+	$GroundRay.force_raycast_update()
+	if $GroundRay.is_colliding():
+		var hit_point: Vector2 = $GroundRay.get_collision_point()
+		var distance: float = hit_point.y - global_position.y
+		var t: float = clamp(distance / shadow_max_distance, 0.0, 1.0)
+
+		$Shadow.global_position = Vector2(global_position.x, hit_point.y)
+		$Shadow.scale = Vector2.ONE * lerp(1.0, shadow_min_scale, t)
+		$Shadow.modulate.a = lerp(shadow_max_alpha, shadow_min_alpha, t)
+		$Shadow.visible = true
+	else:
+		$Shadow.visible = false
 
 func update_animation(direction: float) -> void:
+	if is_shooting:
+		return
+	is_shooting = false
+		
 	var speed_ratio = hold_time / sprint_ramp_time
 	$Sprite2D.speed_scale = lerp(1.0, 1.6, speed_ratio)
 
@@ -132,6 +176,26 @@ func update_animation(direction: float) -> void:
 			$Sprite2D.play("run_stop")
 
 func _on_animation_finished() -> void:
+	if $Sprite2D.animation == "shoot":
+		is_shooting = false
+	
+		if is_on_floor():
+			# let update_animation pick run_start / idle on the next frame
+			air_phase = ""
+			was_on_floor = true
+			anim_state = "idle"
+			$Sprite2D.play("idle")
+		else:
+			# back to the right air pose
+			was_on_floor = false
+			if velocity.y < 0:
+				air_phase = "extrude"
+				$Sprite2D.play("jump_extrude")
+			else:
+				air_phase = "fall"
+				$Sprite2D.play("jump_fall")
+		return
+		
 	# Jump squash finished -> move into extrude (holds its last frame once done, until falling starts)
 	if $Sprite2D.animation == "jump_squash":
 		air_phase = "extrude"
@@ -171,9 +235,35 @@ func shoot() -> void:
 	bullet.inherited_velocity = velocity.x
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = $MuzzlePoint.global_position
+	
+	is_shooting = true
+	$Sprite2D.speed_scale = 1.0
+	$Sprite2D.stop()
+	$Sprite2D.frame = 0   # restart from the top if you spam shoot
+	$Sprite2D.play("shoot")
 
 func take_damage(amount: int) -> void:
+	print("player take_damage: ", amount)
+	if current_health <= 0:
+		return   # already dead, ignore further hits
 	current_health = max(current_health - amount, 0)
 	health_changed.emit(current_health, max_health)
+	_hit_flash()
 	if current_health <= 0:
 		died.emit()
+
+func _hit_flash() -> void:
+	$Sprite2D.modulate = Color(1, 0.3, 0.3)   # red tint
+	var t := create_tween()
+	t.tween_property($Sprite2D, "modulate", Color.WHITE, 0.2)
+
+func apply_upgrades() -> void:
+	walk_speed = base_walk + GameState.bonus_speed
+	sprint_speed = base_sprint + GameState.bonus_speed
+	max_health = base_max_health + GameState.bonus_health
+
+func _on_upgrade_bought(item: String) -> void:
+	apply_upgrades()
+	if item == "health":
+		current_health = min(current_health + 25, max_health)
+	health_changed.emit(current_health, max_health)

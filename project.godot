@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SceneManager="*uid://6o54ufhxc6dw"
+GameState="*uid://cq12txne4483m"
 
 [display]
 

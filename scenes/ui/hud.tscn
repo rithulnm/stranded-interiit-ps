@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://btp8vg7oyk1ft"]
+
+[ext_resource type="Script" uid="uid://cq3xflei3a41a" path="res://scripts/hud.gd" id="1_bo48s"]
+[ext_resource type="PackedScene" uid="uid://cv4bi2omeohko" path="res://scenes/upgrade_button.tscn" id="2_bo48s"]
+[ext_resource type="Texture2D" uid="uid://dvmul7n47obcm" path="res://assets/tileset/platform.png" id="3_136eg"]
+
+[node name="HUD" type="CanvasLayer" unique_id=686873511]
+script = ExtResource("1_bo48s")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=175492563]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=299083625]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=277627597]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1515217900]
+custom_minimum_size = Vector2(50, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+
+[node name="AmmoLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1244787521]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Ammo--"
+
+[node name="BubbleLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1849291688]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 50
+text = "Bubbles: 0"
+
+[node name="PauseButton" type="TextureButton" parent="MarginContainer/HBoxContainer" unique_id=477444040]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("3_136eg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ShopBar" type="HBoxContainer" parent="MarginContainer" unique_id=783055825]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Health" parent="MarginContainer/ShopBar" unique_id=928661739 instance=ExtResource("2_bo48s")]
+layout_mode = 2
+
+[node name="Damage" parent="MarginContainer/ShopBar" unique_id=1794435210 instance=ExtResource("2_bo48s")]
+layout_mode = 2
+item = "damage"
+label_text = "DMG"
+
+[node name="Speed" parent="MarginContainer/ShopBar" unique_id=2032503385 instance=ExtResource("2_bo48s")]
+layout_mode = 2
+item = "speed"
+label_text = "SPD"

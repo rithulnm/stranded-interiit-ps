@@ -31,6 +31,11 @@
 [ext_resource type="Texture2D" uid="uid://dhelbj45yfcud" path="res://assets/sprites/player/jump/jump1.png" id="20_u2ulf"]
 [ext_resource type="Texture2D" uid="uid://chec83og35png" path="res://assets/sprites/player/stop4.png" id="26_31cv2"]
 [ext_resource type="Texture2D" uid="uid://co7omt1betjsr" path="res://assets/sprites/player/stop5.png" id="27_pf23h"]
+[ext_resource type="Texture2D" uid="uid://yevuvqt7a6qg" path="res://assets/sprites/shadow.png" id="32_gl8cc"]
+[ext_resource type="Texture2D" uid="uid://deotqgl1my50q" path="res://assets/sprites/player/shoot/shoot1.png" id="32_jc3p3"]
+[ext_resource type="Texture2D" uid="uid://wx7r0a0ferhb" path="res://assets/sprites/player/shoot/shoot2.png" id="33_hax0n"]
+[ext_resource type="Texture2D" uid="uid://bokj2ddasixe0" path="res://assets/sprites/player/shoot/shoot3.png" id="34_t4otl"]
+[ext_resource type="Texture2D" uid="uid://ddn4n5mpq7egy" path="res://assets/sprites/player/shoot/shoot4.png" id="35_j2b1d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(117, 86)
@@ -205,9 +210,29 @@ animations = [{
 "loop": false,
 "name": &"run_stop",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_jc3p3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_hax0n")
+}, {
+"duration": 2.0,
+"texture": ExtResource("34_t4otl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_j2b1d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_t4otl")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 14.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1413501034]
+[node name="Player" type="CharacterBody2D" unique_id=1413501034 groups=["player"]]
 collision_mask = 2
 script = ExtResource("1_3vyb7")
 bullet_scene = ExtResource("2_g2els")
@@ -216,14 +241,25 @@ bullet_scene = ExtResource("2_g2els")
 position = Vector2(2.5, -2)
 shape = SubResource("RectangleShape2D_g2els")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1260323146]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1260323146 groups=["player"]]
+z_index = 1
 position = Vector2(2, 0)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"jump_extrude"
+animation = &"shoot"
 autoplay = "idle"
-frame_progress = 0.68990594
-offset = Vector2(0, -10)
+frame = 2
+frame_progress = 0.9040858
 
 [node name="MuzzlePoint" type="Marker2D" parent="." unique_id=1756224517]
-position = Vector2(10, -10)
+position = Vector2(31, 3)
+
+[node name="GroundRay" type="RayCast2D" parent="." unique_id=608378481]
+z_index = -1
+position = Vector2(0, -20)
+target_position = Vector2(0, 2000)
+collision_mask = 2
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1473658215]
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("32_gl8cc")

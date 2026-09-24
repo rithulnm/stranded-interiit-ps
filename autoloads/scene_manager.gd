@@ -10,6 +10,13 @@ const LEVEL_1 := "res://scenes/levels/level_1.tscn"
 var pause_menu_instance: CanvasLayer = null
 var is_paused := false
 
+const LEVELS := [
+	"res://scenes/levels/level_1.tscn",
+	# "res://scenes/levels/level_2.tscn",   # uncomment as you build them
+	# "res://scenes/levels/level_3.tscn",
+]
+var current_level := 0
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS  # so this node still runs while paused
 
@@ -40,16 +47,30 @@ func resume_game() -> void:
 
 # --- Scene transitions ---
 func go_to_main_menu() -> void:
+	GameState.reset()
 	_clear_pause_state()
 	get_tree().change_scene_to_file(MAIN_MENU)
 
 func start_game() -> void:
+	current_level = 0
+	GameState.reset()
+	GameState.save_checkpoint()
 	_clear_pause_state()
-	get_tree().change_scene_to_file(LEVEL_1)
+	get_tree().change_scene_to_file(LEVELS[0])
 
 func restart_level() -> void:
+	GameState.restore_checkpoint()
 	_clear_pause_state()
 	get_tree().reload_current_scene()
+
+func go_to_next_level() -> void:
+	current_level += 1
+	if current_level >= LEVELS.size():
+		go_to_main_menu()
+		return
+	GameState.save_checkpoint()   # what you carry in becomes the retry point
+	_clear_pause_state()
+	get_tree().change_scene_to_file(LEVELS[current_level])
 
 func show_game_over() -> void:
 	get_tree().paused = true

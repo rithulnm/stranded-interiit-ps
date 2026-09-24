@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dew0wisjag2ym"]
 
 [ext_resource type="Script" uid="uid://feqnsl7x745u" path="res://scripts/guard.gd" id="1_m4fl1"]
+[ext_resource type="PackedScene" uid="uid://dn72gvygxig2u" path="res://scenes/enemy_bullet.tscn" id="2_ci2qi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hhgp"]
 size = Vector2(50, 50)
@@ -9,14 +10,14 @@ size = Vector2(50, 50)
 size = Vector2(48, 48)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ci2qi"]
-radius = 133.18033
+radius = 1347.0449
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4fl1"]
 size = Vector2(48, 48)
 
 [node name="Guard" type="CharacterBody2D" unique_id=1669241884]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 3
 script = ExtResource("1_m4fl1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=41689181]
@@ -36,15 +37,23 @@ target_position = Vector2(20, 0)
 collision_mask = 2
 
 [node name="DetectionZone" type="Area2D" parent="." unique_id=293997183]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=719853348]
 shape = SubResource("CircleShape2D_ci2qi")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1423457521]
-collision_layer = 8
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=457503273]
 shape = SubResource("RectangleShape2D_m4fl1")
+
+[node name="SightRay" type="RayCast2D" parent="." unique_id=276954356]
+target_position = Vector2(0, -40)
+collision_mask = 2
+
+[node name="Bullet" parent="." unique_id=611720095 instance=ExtResource("2_ci2qi")]
+position = Vector2(139.64893, -682.9965)
 
 [connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
 [connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
