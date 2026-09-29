@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://b8edlniyuvway"]
+
+[ext_resource type="Script" uid="uid://146owybu3riv" path="res://scripts/bottling_point.gd" id="1_4u05p"]
+[ext_resource type="Texture2D" uid="uid://dapsiwnqx40cf" path="res://assets/sprites/bank/Untitled157.png" id="2_y37ep"]
+[ext_resource type="Texture2D" uid="uid://dps0dkhjqd1w6" path="res://assets/sprites/bank/Untitled158.png" id="3_rgu2m"]
+[ext_resource type="Texture2D" uid="uid://b8ck3f4ayi5fc" path="res://assets/sprites/decore/dot.png" id="5_3axd2"]
+[ext_resource type="Texture2D" uid="uid://sirbr5b8jvld" path="res://assets/sprites/decore/Untitled156.png" id="6_dyepl"]
+[ext_resource type="Texture2D" uid="uid://bdurose6s88eq" path="res://assets/sprites/bank/scanring.png" id="12_y7e7i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ymkk"]
+size = Vector2(278, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tm8sk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y37ep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rgu2m")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rgu2m")
+}],
+"loop": true,
+"name": &"active_loop",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rgu2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_y37ep")
+}],
+"loop": false,
+"name": &"bank_confirm",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rgu2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_y37ep")
+}],
+"loop": true,
+"name": &"deactivate",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y37ep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rgu2m")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qp8kn"]
+points = PackedVector2Array(5.449539, 150.06433, 0, 128.931, 0, 59, 0, -49, 0, -101.305, 11.405, -135, 37.155, -111.252, 52.59659, -57.459538, 53.708, 29.422, 36.717, 124.261)
+
+[sub_resource type="Gradient" id="Gradient_dyepl"]
+offsets = PackedFloat32Array(0, 0.5451542, 0.99229074, 0.9988987, 1)
+colors = PackedColorArray(0.8286529, 0.6909138, 0, 1, 0.8862745, 0.6901961, 1, 1, 0.98039216, 0.75686276, 0.99607843, 0.3529412, 0.982056, 0.7576503, 0.99651104, 1, 0.98039216, 0.75686276, 0.99607843, 0.3019608)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q5sco"]
+gradient = SubResource("Gradient_dyepl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fk0qn"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -1, 0)
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+damping_max = 2.0
+scale_min = 0.099999994
+scale_max = 0.29999998
+color_ramp = SubResource("GradientTexture1D_q5sco")
+hue_variation_min = -0.3
+hue_variation_max = 0.29999998
+
+[sub_resource type="Gradient" id="Gradient_q5sco"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.11372549)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fk0qn"]
+gradient = SubResource("Gradient_q5sco")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ogm2"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.08
+scale_max = 0.19999999
+color_ramp = SubResource("GradientTexture1D_fk0qn")
+hue_variation_min = -0.75
+hue_variation_max = 0.75999993
+
+[node name="BottlingPoint" type="Area2D" unique_id=492072779]
+script = ExtResource("1_4u05p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1411884791]
+position = Vector2(-8, 77.5)
+shape = SubResource("RectangleShape2D_3ymkk")
+
+[node name="Pad" type="AnimatedSprite2D" parent="." unique_id=251408452]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_tm8sk")
+animation = &"activate"
+
+[node name="ScanBar" type="Sprite2D" parent="." unique_id=1178097222]
+visible = false
+z_index = 100
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("12_y7e7i")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=484390683]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1020794118]
+position = Vector2(1, 70)
+rotation = 1.5604622
+shape = SubResource("ConvexPolygonShape2D_qp8kn")
+
+[node name="AmbientParticles" type="GPUParticles2D" parent="." unique_id=1711405938]
+amount = 25
+texture = ExtResource("5_3axd2")
+process_material = SubResource("ParticleProcessMaterial_fk0qn")
+
+[node name="BankParticles" type="GPUParticles2D" parent="." unique_id=131050593]
+emitting = false
+amount = 20
+texture = ExtResource("6_dyepl")
+lifetime = 6.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8ogm2")
+
+[node name="ActivateParticles" type="GPUParticles2D" parent="." unique_id=748259995]
+emitting = false
+amount = 100
+texture = ExtResource("5_3axd2")
+lifetime = 6.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8ogm2")

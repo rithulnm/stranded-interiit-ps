@@ -2,12 +2,13 @@ extends CanvasLayer
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	GameState.clear_unbanked_on_death()
 	var is_final := SceneManager.current_level >= SceneManager.LEVELS.size() - 1
 	if is_final:
-		$Panel/ButtonContainer/TitleLabel.text = "YOU ESCAPED!\nBubbles: %d" % GameState.bubbles
+		$Panel/ButtonContainer/TitleLabel.text = "YOU ESCAPED!\nWallet: %d" % GameState.wallet
 		$Panel/ButtonContainer/NextLevelButton.hide()
 	else:
-		$Panel/ButtonContainer/TitleLabel.text = "LEVEL COMPLETE\nBubbles: %d" % GameState.bubbles
+		$Panel/ButtonContainer/TitleLabel.text = "LEVEL COMPLETE\nWallet: %d" % GameState.wallet
 	$Panel/ButtonContainer/NextLevelButton.pressed.connect(_on_next_level_pressed)
 	$Panel/ButtonContainer/RetryButton.pressed.connect(_on_retry_pressed)
 	$Panel/ButtonContainer/QuitToMenuButton.pressed.connect(_on_quit_pressed)
@@ -18,7 +19,7 @@ func _on_next_level_pressed() -> void:
 
 func _on_retry_pressed() -> void:
 	queue_free()
-	SceneManager.restart_level()
+	SceneManager.replay_level_from_start()
 
 func _on_quit_pressed() -> void:
 	queue_free()

@@ -1,17 +1,52 @@
 [gd_scene format=3 uid="uid://di1vv45k6fq7c"]
 
 [ext_resource type="Script" uid="uid://bmoma1n51ppe0" path="res://scripts/hazard.gd" id="1_awlwb"]
-[ext_resource type="Texture2D" uid="uid://cgn1cemod87so" path="res://assets/tileset/ground.png" id="1_rxmjj"]
+[ext_resource type="Texture2D" uid="uid://b8ck3f4ayi5fc" path="res://assets/sprites/decore/dot.png" id="2_2d6m4"]
+[ext_resource type="Texture2D" uid="uid://beukrvbqtpp5k" path="res://assets/tileset/mid0_bigger.png" id="2_awlwb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_awlwb"]
-size = Vector2(64, 64)
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6s6ot"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_v0kf5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.4392157)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xe0r3"]
+gradient = SubResource("Gradient_v0kf5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ijc8"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(120, 100, 0)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, -20, 0)
+scale_min = 0.099999994
+scale_max = 0.5
+color = Color(1, 0.6901961, 1, 1)
+color_ramp = SubResource("GradientTexture1D_xe0r3")
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_2d6m4"]
+points = PackedVector2Array(119.5, -58.5, 177.5, 24.5, -80.5, 24.5, -80.5, -58.5)
 
 [node name="Hazard" type="Area2D" unique_id=1303795809]
 collision_layer = 8
 script = ExtResource("1_awlwb")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1595039513]
+material = SubResource("CanvasItemMaterial_6s6ot")
+position = Vector2(-4, -103)
+amount = 30
+texture = ExtResource("2_2d6m4")
+lifetime = 2.0
+preprocess = 1.0
+process_material = SubResource("ParticleProcessMaterial_2ijc8")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=5660136]
-texture = ExtResource("1_rxmjj")
+visible = false
+texture = ExtResource("2_awlwb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1432242521]
-shape = SubResource("RectangleShape2D_awlwb")
+position = Vector2(-47.5, -25.5)
+shape = SubResource("ConvexPolygonShape2D_2d6m4")

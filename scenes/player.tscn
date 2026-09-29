@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ch43ge15cgjv3" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://cufri8qrmibin" path="res://scenes/bullet.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://wa5g3732aipk" path="res://scenes/bubble.tscn" id="2_hax0n"]
 [ext_resource type="Texture2D" uid="uid://by8lsjew1q6ab" path="res://assets/sprites/player/idle1.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://c7o28eivpqcyp" path="res://assets/sprites/player/idle2.png" id="4_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://bapqy0sbgy4rv" path="res://assets/sprites/player/idle3.png" id="5_fjrip"]
@@ -235,6 +236,7 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1413501034 groups=["player"]]
 collision_mask = 2
 script = ExtResource("1_3vyb7")
+bubble_scene = ExtResource("2_hax0n")
 bullet_scene = ExtResource("2_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2093193136]

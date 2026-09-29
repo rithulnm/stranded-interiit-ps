@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://08gcgroa5duh"]
+
+[ext_resource type="Script" uid="uid://ojus0ka6vwx4" path="res://scripts/gate.gd" id="1_xfvdi"]
+[ext_resource type="Texture2D" uid="uid://cu3rjh0j7wraq" path="res://assets/sprites/tollclosed2.png" id="2_xwxio"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfvdi"]
+size = Vector2(762, 556)
+
+[node name="Gate" type="Area2D" unique_id=402772721]
+collision_layer = 2
+script = ExtResource("1_xfvdi")
+
+[node name="Label" type="Label" parent="." unique_id=1191582450]
+visible = false
+offset_right = 118.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 71
+text = "s"
+
+[node name="Central" type="Sprite2D" parent="." unique_id=1079858087]
+texture = ExtResource("2_xwxio")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1364790756]
+position = Vector2(7, 19)
+shape = SubResource("RectangleShape2D_xfvdi")
+
+[node name="Blocker" type="StaticBody2D" parent="CollisionShape2D" unique_id=941428861]
+position = Vector2(-7, -19)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/Blocker" unique_id=1517325850]
+position = Vector2(11, 27)
+shape = SubResource("RectangleShape2D_xfvdi")

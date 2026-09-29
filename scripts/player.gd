@@ -3,6 +3,7 @@ extends CharacterBody2D
 signal health_changed(current: int, max: int)
 signal died
 
+@export var bubble_scene: PackedScene
 @export var walk_speed: float = 400.0
 @export var sprint_speed: float = 650.0
 @export var sprint_ramp_time: float = 1.0
@@ -13,6 +14,7 @@ signal died
 @export var acceleration: float = 1500.0
 @export var friction: float = 1500.0
 @export var bullet_scene: PackedScene
+@export var bullet_text: Texture2D
 @export var max_health: int = 100
 
 # --- Shadow settings ---
@@ -53,7 +55,6 @@ func _ready() -> void:
 	$GroundRay.collide_with_areas = false
 	$GroundRay.collide_with_bodies = true  
 	$GroundRay.hit_from_inside = true
-	GameState.add_bubbles(50)
 	
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
@@ -96,7 +97,7 @@ func _physics_process(delta: float) -> void:
 			var dash_dir = direction if direction != 0 else (1.0 if not flip_h() else -1.0)
 			start_dash(dash_dir)
 
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_just_pressed("shoot") and can_shoot_flag:
 			shoot()
 
 	move_and_slide()
@@ -235,6 +236,7 @@ func shoot() -> void:
 	bullet.inherited_velocity = velocity.x
 	get_tree().current_scene.add_child(bullet)
 	bullet.global_position = $MuzzlePoint.global_position
+	bullet.texture = bullet_text
 	
 	is_shooting = true
 	$Sprite2D.speed_scale = 1.0
@@ -243,14 +245,37 @@ func shoot() -> void:
 	$Sprite2D.play("shoot")
 
 func take_damage(amount: int) -> void:
-	print("player take_damage: ", amount)
+	if is_invulnerable:
+		return
 	if current_health <= 0:
-		return   # already dead, ignore further hits
+		return
+		print("take_damage called: amount=", amount, " stack=", get_stack())
 	current_health = max(current_health - amount, 0)
 	health_changed.emit(current_health, max_health)
+	
 	_hit_flash()
 	if current_health <= 0:
 		died.emit()
+	elif amount > 0:
+		spill_bubbles()
+
+func spill_bubbles() -> void:
+	if not bubble_scene:
+		return
+	var count := GameState.spill_unbanked()
+	for i in count:
+		var angle := randf_range(-PI * 0.75, -PI * 0.25)
+		var spd := randf_range(150.0, 300.0)
+		var spawn_pos: Vector2 = global_position + Vector2(randf_range(-10, 10), -10)
+		var vel: Vector2 = Vector2(cos(angle), sin(angle)) * spd
+		call_deferred("_spawn_spill_bubble", spawn_pos, vel)
+
+func _spawn_spill_bubble(spawn_pos: Vector2, vel: Vector2) -> void:
+	var b = bubble_scene.instantiate()
+	b.expires = true
+	get_tree().current_scene.add_child(b)
+	b.global_position = spawn_pos
+	b.velocity = vel
 
 func _hit_flash() -> void:
 	$Sprite2D.modulate = Color(1, 0.3, 0.3)   # red tint
@@ -267,3 +292,12 @@ func _on_upgrade_bought(item: String) -> void:
 	if item == "health":
 		current_health = min(current_health + 25, max_health)
 	health_changed.emit(current_health, max_health)
+
+var is_invulnerable: bool = false
+var can_shoot_flag: bool = true
+
+func set_invulnerable(value: bool) -> void:
+	is_invulnerable = value
+
+func set_can_shoot(value: bool) -> void:
+	can_shoot_flag = value

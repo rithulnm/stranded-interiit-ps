@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://bevrhfpgalwkn"]
+
+[ext_resource type="Script" uid="uid://b0i825ktam81n" path="res://scripts/guard_bots/sentry.gd" id="1_cbqui"]
+[ext_resource type="PackedScene" uid="uid://dn72gvygxig2u" path="res://scenes/enemy_bullet.tscn" id="2_lldd5"]
+[ext_resource type="Texture2D" uid="uid://b2d0mmg1t0icp" path="res://assets/sprites/bots/sentry/sentry1.png" id="3_2ulqh"]
+[ext_resource type="Texture2D" uid="uid://c1w4edu6dre2q" path="res://assets/sprites/bots/sentry/sentry8.png" id="4_i3ank"]
+[ext_resource type="Texture2D" uid="uid://4bej5hd35j1j" path="res://assets/sprites/bots/sentry/sentry9.png" id="5_284as"]
+[ext_resource type="Texture2D" uid="uid://bniajevx2loli" path="res://assets/sprites/bots/sentry/sentry10.png" id="6_04ien"]
+[ext_resource type="Texture2D" uid="uid://ibiqx7vpdv8t" path="res://assets/sprites/bots/sentry/sentry11.png" id="7_m2lgk"]
+[ext_resource type="Texture2D" uid="uid://dur3i2ogbi764" path="res://assets/sprites/bots/sentry/sentry12.png" id="8_rdxsf"]
+[ext_resource type="Texture2D" uid="uid://bn7bq2vl124xv" path="res://assets/sprites/bots/sentry/sentry13.png" id="9_prafh"]
+[ext_resource type="Texture2D" uid="uid://bbspdur78e4in" path="res://assets/sprites/bots/sentry/sentry14.png" id="10_8t015"]
+[ext_resource type="Texture2D" uid="uid://yevuvqt7a6qg" path="res://assets/sprites/shadow.png" id="10_i3ank"]
+[ext_resource type="Texture2D" uid="uid://c3xic1tv41c18" path="res://assets/sprites/bots/sentry/sentry2.png" id="11_yh4j6"]
+[ext_resource type="Texture2D" uid="uid://cayicllsqlhp4" path="res://assets/sprites/bots/sentry/sentry3.png" id="12_mnqii"]
+[ext_resource type="Texture2D" uid="uid://etqo4ynarrqe" path="res://assets/sprites/bots/sentry/sentry4.png" id="13_liojr"]
+[ext_resource type="Texture2D" uid="uid://c4horco0f1nn1" path="res://assets/sprites/bots/sentry/sentry5.png" id="14_emk5u"]
+[ext_resource type="Texture2D" uid="uid://bd445pwnt57y2" path="res://assets/sprites/bots/sentry/sentry6.png" id="15_6owvm"]
+[ext_resource type="Texture2D" uid="uid://kpgugaefwo68" path="res://assets/sprites/bots/sentry/sentry7.png" id="16_5ukxu"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_xo3hs"]
+points = PackedVector2Array(-55, 55, -18, 49, 38, 29, 51, -75, -5, -84, -41, -61, -66, -37, -66, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wsx1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_i3ank")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_284as")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_04ien")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_m2lgk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rdxsf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_prafh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_8t015")
+}],
+"loop": true,
+"name": &"alert",
+"speed": 40.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2ulqh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i3ank")
+}],
+"loop": false,
+"name": &"alert_transition",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2ulqh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_yh4j6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mnqii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_liojr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_emk5u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_6owvm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_5ukxu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 40.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oduql"]
+radius = 848.0
+height = 2574.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cbqem"]
+radius = 82.0975
+
+[node name="Sentry" type="CharacterBody2D" unique_id=1669241884]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_cbqui")
+bullet_scene = ExtResource("2_lldd5")
+patrol_speed = 60.0
+bullet_speed = 2000.0
+fire_cooldown_time = 0.5
+charge_trigger_distance = 400.0
+charge_windup_time = 0.1
+charge_speed = 1000.0
+charge_duration = 0.7
+recover_time = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=41689181]
+shape = SubResource("ConvexPolygonShape2D_xo3hs")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=99101517]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_wsx1l")
+animation = &"alert_transition"
+offset = Vector2(0, -10)
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=1423294252]
+position = Vector2(0, 10)
+target_position = Vector2(20, 0)
+collision_mask = 2
+
+[node name="SightRay" type="RayCast2D" parent="." unique_id=276954356]
+target_position = Vector2(0, -40)
+collision_mask = 2
+
+[node name="LedgeCheck" type="RayCast2D" parent="." unique_id=987831966]
+position = Vector2(0, 10)
+collision_mask = 2
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=293997183]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=719853348]
+z_index = 1
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_oduql")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1423457521]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=457503273]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_cbqem")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=2106279719]
+scale = Vector2(3, 3)
+texture = ExtResource("10_i3ank")
+
+[node name="GroundRay" type="RayCast2D" parent="." unique_id=113816514]
+z_index = -1
+position = Vector2(0, -20)
+target_position = Vector2(0, 2000)
+collision_mask = 2
+
+[node name="MuzzlePoint" type="Marker2D" parent="." unique_id=670362672]
+position = Vector2(-57, 27)
+
+[node name="EdgeCheck" type="RayCast2D" parent="." unique_id=2134260719]
+position = Vector2(0, 20)
+target_position = Vector2(0, 148)
+collision_mask = 2
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
+[connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

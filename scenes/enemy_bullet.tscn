@@ -20,4 +20,6 @@ shape = SubResource("CapsuleShape2D_y25gk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=652488655]
 modulate = Color(0.6493522, 0.5375062, 0.14413294, 1)
+position = Vector2(3.8146973e-06, 0)
+scale = Vector2(0.9999996, 1)
 texture = SubResource("PlaceholderTexture2D_l5glv")

@@ -2,16 +2,35 @@
 
 [ext_resource type="Texture2D" uid="uid://cgn1cemod87so" path="res://assets/tileset/ground.png" id="1_bswci"]
 [ext_resource type="Script" uid="uid://dj1xuh8mt8nmp" path="res://scripts/level1.gd" id="1_iav0o"]
+[ext_resource type="PackedScene" uid="uid://cj71rs70k7xqh" path="res://scenes/guards/soldy.tscn" id="2_bahl2"]
+[ext_resource type="PackedScene" uid="uid://durekwopwqva6" path="res://scenes/guards/avatar.tscn" id="2_iwr0g"]
 [ext_resource type="PackedScene" uid="uid://btp8vg7oyk1ft" path="res://scenes/ui/hud.tscn" id="2_oc4kc"]
 [ext_resource type="Texture2D" uid="uid://dvmul7n47obcm" path="res://assets/tileset/platform.png" id="2_rus8k"]
 [ext_resource type="PackedScene" uid="uid://c8fwqn2n2h55c" path="res://scenes/player.tscn" id="3_rus8k"]
 [ext_resource type="Script" uid="uid://c5osg0o1jxr4u" path="res://scripts/fall_zone.gd" id="4_5xbjy"]
+[ext_resource type="PackedScene" uid="uid://l14xdy8b7b27" path="res://scenes/guards/trinity.tscn" id="5_4yk0h"]
 [ext_resource type="Texture2D" uid="uid://qhuvu56qkxj4" path="res://assets/tileset/mid0.png" id="5_s8va5"]
 [ext_resource type="Texture2D" uid="uid://beukrvbqtpp5k" path="res://assets/tileset/mid0_bigger.png" id="6_dga24"]
-[ext_resource type="PackedScene" uid="uid://dew0wisjag2ym" path="res://scenes/guard.tscn" id="6_fcfvj"]
-[ext_resource type="PackedScene" uid="uid://dn72gvygxig2u" path="res://scenes/enemy_bullet.tscn" id="10_qxy0u"]
+[ext_resource type="Texture2D" uid="uid://5417c63h1u3p" path="res://assets/tileset/basic_variations/basicdirty.png" id="7_7o3do"]
+[ext_resource type="Texture2D" uid="uid://br3pbhn2rwcqt" path="res://assets/tileset/basic_variations/midweld.png" id="8_o7j4k"]
+[ext_resource type="Texture2D" uid="uid://dh27uosm60gcf" path="res://assets/tileset/basic_variations/basicblue.png" id="9_mkypq"]
+[ext_resource type="Texture2D" uid="uid://by5g3lxessp3q" path="res://assets/tileset/mid0bigger_right.png" id="9_o7j4k"]
+[ext_resource type="Texture2D" uid="uid://bt534ghuygpwp" path="res://assets/tileset/basic_variations/warningleft.png" id="10_31oqk"]
+[ext_resource type="Texture2D" uid="uid://bbwjrujfqyhxc" path="res://assets/tileset/basic_variations/basicgreen.png" id="10_ndtll"]
+[ext_resource type="Texture2D" uid="uid://b6022q4q6hc1u" path="res://assets/tileset/basic_variations/basicmossy.png" id="11_7h2jl"]
 [ext_resource type="PackedScene" uid="uid://di1vv45k6fq7c" path="res://scenes/hazard.tscn" id="11_excbq"]
+[ext_resource type="Texture2D" uid="uid://blstlvggfaurd" path="res://assets/tileset/basic_variations/warningright.png" id="11_x7jkp"]
 [ext_resource type="PackedScene" uid="uid://blk3qj6frxi4y" path="res://scenes/exit_door.tscn" id="12_dnkej"]
+[ext_resource type="Texture2D" uid="uid://c80jlwouc6cp3" path="res://assets/tileset/basic_variations/basicred.png" id="12_mqh5v"]
+[ext_resource type="Texture2D" uid="uid://dyhkw68o11ykt" path="res://assets/platform/platform1.png" id="12_x7jkp"]
+[ext_resource type="Texture2D" uid="uid://dvqbkcuwxu856" path="res://assets/platform/platformend.png" id="13_0qwwm"]
+[ext_resource type="Texture2D" uid="uid://da2k8qsns2hlj" path="res://assets/tileset/basic_variations/basicyellow.png" id="13_7o3do"]
+[ext_resource type="PackedScene" uid="uid://b8edlniyuvway" path="res://scenes/bottling_point.tscn" id="13_dnkej"]
+[ext_resource type="Script" uid="uid://c7p5m3vy1frg4" path="res://scripts/tilemap_hazard.gd" id="14_ndtll"]
+[ext_resource type="PackedScene" uid="uid://08gcgroa5duh" path="res://scenes/gate.tscn" id="14_wtwp4"]
+[ext_resource type="PackedScene" uid="uid://dtdh7y7ippcvy" path="res://scenes/pressure_box.tscn" id="15_iwr0g"]
+[ext_resource type="PackedScene" uid="uid://bevrhfpgalwkn" path="res://scenes/guards/sentry.tscn" id="16_bahl2"]
+[ext_resource type="PackedScene" uid="uid://cgiwj0hmcaaes" path="res://scenes/guards/henry.tscn" id="16_iwr0g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5xbjy"]
 texture = ExtResource("1_bswci")
@@ -25,6 +44,48 @@ texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4yk0h"]
+texture = ExtResource("7_7o3do")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmrhw"]
+texture = ExtResource("8_o7j4k")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfnpk"]
+texture = ExtResource("9_o7j4k")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 112, -32, 128, 4.0994873, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wvtie"]
+texture = ExtResource("10_31oqk")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 4.0994873, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8s4s"]
+texture = ExtResource("11_x7jkp")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 4.0994873, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ebb2h"]
+texture = ExtResource("12_x7jkp")
+texture_region_size = Vector2i(192, 69)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-96, -16, 96, -16, 96, 48, -96, 48)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_row31"]
+texture = ExtResource("13_0qwwm")
+texture_region_size = Vector2i(192, 69)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-96, -16, 80, -16, 96, 0, 96, 48, -96, 48)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dga24"]
 texture = ExtResource("5_s8va5")
 texture_region_size = Vector2i(256, 128)
@@ -37,6 +98,36 @@ texture_region_size = Vector2i(256, 167)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o7j4k"]
+texture = ExtResource("9_mkypq")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_31oqk"]
+texture = ExtResource("10_ndtll")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x7jkp"]
+texture = ExtResource("11_7h2jl")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qwwm"]
+texture = ExtResource("12_mqh5v")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t4umt"]
+texture = ExtResource("13_7o3do")
+texture_region_size = Vector2i(256, 167)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -32, 128, -32, 128, 80, -128, 80)
+
 [sub_resource type="TileSet" id="TileSet_fcfvj"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 2
@@ -44,6 +135,18 @@ sources/0 = SubResource("TileSetAtlasSource_5xbjy")
 sources/1 = SubResource("TileSetAtlasSource_4nkto")
 sources/2 = SubResource("TileSetAtlasSource_dga24")
 sources/3 = SubResource("TileSetAtlasSource_qxy0u")
+sources/4 = SubResource("TileSetAtlasSource_o7j4k")
+sources/5 = SubResource("TileSetAtlasSource_31oqk")
+sources/6 = SubResource("TileSetAtlasSource_x7jkp")
+sources/7 = SubResource("TileSetAtlasSource_0qwwm")
+sources/8 = SubResource("TileSetAtlasSource_t4umt")
+sources/10 = SubResource("TileSetAtlasSource_4yk0h")
+sources/11 = SubResource("TileSetAtlasSource_vmrhw")
+sources/12 = SubResource("TileSetAtlasSource_cfnpk")
+sources/13 = SubResource("TileSetAtlasSource_wvtie")
+sources/14 = SubResource("TileSetAtlasSource_o8s4s")
+sources/15 = SubResource("TileSetAtlasSource_ebb2h")
+sources/16 = SubResource("TileSetAtlasSource_row31")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rus8k"]
 
@@ -54,19 +157,19 @@ script = ExtResource("1_iav0o")
 [node name="HUD" parent="." unique_id=686873511 instance=ExtResource("2_oc4kc")]
 
 [node name="PlayerStart" type="Marker2D" parent="." unique_id=266085869]
-position = Vector2(351, 232)
+position = Vector2(1143, 560)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=795255008]
-position = Vector2(23, 264)
-tile_map_data = PackedByteArray("AAD8/wUAAwAAAAAAAAAAAAUAAwAAAAAAAAAEAAUAAwAAAAAAAAAIAAUAAwAAAAAAAAAMAAUAAwAAAAAAAAAQAAUAAwAAAAAAAAAUAAUAAwAAAAAAAAAYAAUAAwAAAAAAAAAcAAUAAwAAAAAAAAAgAAUAAwAAAAAAAAAkAAUAAwAAAAAAAAAoAAUAAwAAAAAAAAAsAAUAAwAAAAAAAAAwAAUAAwAAAAAAAAA0AAUAAwAAAAAAAAA4AAUAAwAAAAAAAAA9AAIAAwAAAAAAAABBAAIAAwAAAAAAAABFAAIAAwAAAAAAAABJAAIAAwAAAAAAAABNAAIAAwAAAAAAAABRAAIAAwAAAAAAAABVAAIAAwAAAAAAAABaAAQAAwAAAAAAAABeAAQAAwAAAAAAAABiAAQAAwAAAAAAAABmAAQAAwAAAAAAAABqAAQAAwAAAAAAAABuAAQAAwAAAAAAAAByAAQAAwAAAAAAAAB2AAQAAwAAAAAAAAB8APz/AwAAAAAAAACAAPz/AwAAAAAAAACEAPz/AwAAAAAAAACIAPz/AwAAAAAAAACMAPz/AwAAAAAAAACQAPz/AwAAAAAAAAB4AP//AwAAAAAAAAB1AAEAAwAAAAAAAAA=")
+position = Vector2(24, 264)
+tile_map_data = PackedByteArray("AAAZAAYABAAAAAAAAAAdAAYACAAAAAAAAAAhAAYABgAAAAAAAAAlAAYABgAAAAAAAAApAAYABwAAAAAAAAAtAAYAAwAAAAAAAAAxAAYACwAAAAAAAAA1AAYAAwAAAAAAAAA5AAMADAAAAAAAABA5AAYADAAAAAAAAAA8AP//EAAAAAAAABA9AAMADQAAAAAAAAA/AP//DwAAAAAAAABBAAMADgAAAAAAAABCAP//EAAAAAAAAABFAAMADAAAAAAAAABMAAMAAwAAAAAAAABQAAQAAwAAAAAAAABUAAYAAwAAAAAAAABYAAYAAwAAAAAAAABcAAYAAwAAAAAAAABgAAYAAwAAAAAAAABkAAYAAwAAAAAAAABoAAYAAwAAAAAAAABsAAYAAwAAAAAAAABuAAQAAwAAAAAAAAByAAQAAwAAAAAAAAB2AAQAAwAAAAAAAAB6AAQAAwAAAAAAAAB+AAQAAwAAAAAAAACBAAYAAwAAAAAAAACFAAYAAwAAAAAAAACJAAYAAwAAAAAAAACNAAYAAwAAAAAAAACRAAYAAwAAAAAAAACVAAYAAwAAAAAAAACYAAQAAwAAAAAAAACZAAYAAwAAAAAAAACcAAIAAwAAAAAAAACcAAQAAwAAAAAAAACdAAYAAwAAAAAAAACgAAIAAwAAAAAAAAChAAYAAwAAAAAAAACkAAIAAwAAAAAAAACoAAIAAwAAAAAAAACsAAIAAwAAAAAAAACwAAIAAwAAAAAAAAC0AAIAAwAAAAAAAAC4AAIAAwAAAAAAAAC7AP//AwAAAAAAAAC/AP//AwAAAAAAAADDAAEAAwAAAAAAAADFAAMAAwAAAAAAAADQAAMAAwAAAAAAAADUAAMAAwAAAAAAAADYAAMAAwAAAAAAAADcAAMAAwAAAAAAAADgAAMAAwAAAAAAAADkAAMAAwAAAAAAAADoAAMAAwAAAAAAAAARAAYAAwAAAAAAAAAVAAYACwAAAAAAAAANAAYACwAAAAAAAAAJAAYACwAAAAAAAAAFAAYACwAAAAAAAAABAAYACwAAAAAAAAD9/wYACwAAAAAAAAD5/wYACwAAAAAAAAD1/wYACwAAAAAAAADx/wYACwAAAAAAAADt/wYACwAAAAAAAADp/wYACwAAAAAAAADl/wYACwAAAAAAAADh/wYACwAAAAAAAADd/wYACwAAAAAAAADZ/wYACwAAAAAAAADV/wYACwAAAAAAAADR/wYACwAAAAAAAADN/wYACwAAAAAAAADJ/wYACwAAAAAAAADF/wYADAAAAAAAABA=")
 tile_set = SubResource("TileSet_fcfvj")
+script = ExtResource("14_ndtll")
 
 [node name="Player" parent="." unique_id=1413501034 instance=ExtResource("3_rus8k")]
 position = Vector2(255, 8)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=253501078]
-limit_left = 0
-limit_bottom = 750
+limit_bottom = 850
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 editor_draw_limits = true
@@ -78,27 +181,39 @@ script = ExtResource("4_5xbjy")
 position = Vector2(-49, 3160)
 shape = SubResource("WorldBoundaryShape2D_rus8k")
 
-[node name="Guard2" parent="." unique_id=1669241884 instance=ExtResource("6_fcfvj")]
-position = Vector2(2447, -56)
-guard_color = Color(1, 0, 0, 1)
-bullet_scene = ExtResource("10_qxy0u")
-
-[node name="Guard3" parent="." unique_id=270561392 instance=ExtResource("6_fcfvj")]
-position = Vector2(5359, -88)
-guard_color = Color(0, 1, 0, 1)
-bullet_type = 1
-bullet_scene = ExtResource("10_qxy0u")
-
-[node name="Guard4" parent="." unique_id=1408305337 instance=ExtResource("6_fcfvj")]
-position = Vector2(7351, -24)
-guard_color = Color(0, 0, 1, 1)
-bullet_type = 2
-bullet_scene = ExtResource("10_qxy0u")
-
 [node name="Hazard" parent="." unique_id=1303795809 instance=ExtResource("11_excbq")]
-position = Vector2(3967, 32)
+position = Vector2(4215, 488)
 
 [node name="Exit_Door" parent="." unique_id=664248891 instance=ExtResource("12_dnkej")]
-position = Vector2(8759, -520)
+position = Vector2(14463, 216)
+
+[node name="BottlingPoint" parent="." unique_id=492072779 instance=ExtResource("13_dnkej")]
+position = Vector2(4079, 168)
+scale = Vector2(0.5, 0.5)
+
+[node name="BottlingPoint2" parent="." unique_id=366775782 instance=ExtResource("13_dnkej")]
+position = Vector2(12527, 240)
+
+[node name="Gate" parent="." unique_id=402772721 instance=ExtResource("14_wtwp4")]
+position = Vector2(4935, 296)
+required = 3
+
+[node name="PressureBox" parent="." unique_id=792149066 instance=ExtResource("15_iwr0g")]
+position = Vector2(3103, 456)
+
+[node name="Trinity" parent="." unique_id=2065145210 instance=ExtResource("5_4yk0h")]
+position = Vector2(-3505, 576)
+
+[node name="Soldy" parent="." unique_id=1709879246 instance=ExtResource("2_bahl2")]
+position = Vector2(-257, 552)
+
+[node name="Avatar" parent="." unique_id=126192970 instance=ExtResource("2_iwr0g")]
+position = Vector2(10999, 184)
+
+[node name="Henry" parent="." unique_id=636791676 instance=ExtResource("16_iwr0g")]
+position = Vector2(7511, 360)
+
+[node name="Sentry" parent="." unique_id=1669241884 instance=ExtResource("16_bahl2")]
+position = Vector2(2863, 584)
 
 [connection signal="body_entered" from="FallZone" to="FallZone" method="_on_body_entered"]

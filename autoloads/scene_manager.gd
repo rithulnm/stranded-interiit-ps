@@ -54,12 +54,15 @@ func go_to_main_menu() -> void:
 func start_game() -> void:
 	current_level = 0
 	GameState.reset()
-	GameState.save_checkpoint()
 	_clear_pause_state()
 	get_tree().change_scene_to_file(LEVELS[0])
 
 func restart_level() -> void:
-	GameState.restore_checkpoint()
+	_clear_pause_state()
+	get_tree().reload_current_scene()
+
+func replay_level_from_start() -> void:
+	GameState.clear_level_respawn()
 	_clear_pause_state()
 	get_tree().reload_current_scene()
 
@@ -68,7 +71,7 @@ func go_to_next_level() -> void:
 	if current_level >= LEVELS.size():
 		go_to_main_menu()
 		return
-	GameState.save_checkpoint()   # what you carry in becomes the retry point
+	GameState.clear_level_respawn()
 	_clear_pause_state()
 	get_tree().change_scene_to_file(LEVELS[current_level])
 

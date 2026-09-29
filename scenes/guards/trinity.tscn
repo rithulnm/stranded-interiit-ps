@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://l14xdy8b7b27"]
+
+[ext_resource type="Script" uid="uid://4od7053hqknl" path="res://scripts/guard_bots/trinity.gd" id="1_byqp6"]
+[ext_resource type="PackedScene" uid="uid://dn72gvygxig2u" path="res://scenes/enemy_bullet.tscn" id="2_i2hf5"]
+[ext_resource type="Texture2D" uid="uid://cidgve3tfaf3" path="res://assets/sprites/bots/trinity/trinityg1.png" id="3_u2xym"]
+[ext_resource type="Texture2D" uid="uid://q67a75tp4ft2" path="res://assets/sprites/bots/trinity/trinityr1.png" id="4_y6h1k"]
+[ext_resource type="Texture2D" uid="uid://cr05fvirc424e" path="res://assets/sprites/bots/trinity/trinity0.png" id="5_r7k8r"]
+[ext_resource type="Texture2D" uid="uid://yevuvqt7a6qg" path="res://assets/sprites/shadow.png" id="16_tpklo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oduql"]
+radius = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wsx1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_u2xym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y6h1k")
+}],
+"loop": false,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_r7k8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_u2xym")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oduql"]
+radius = 848.0
+height = 2574.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cbqem"]
+radius = 38.013157
+
+[node name="Trinity" type="CharacterBody2D" unique_id=1669241884]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_byqp6")
+bullet_scene = ExtResource("2_i2hf5")
+patrol_speed = 500.0
+cooldown_time = 0.001
+bullet_speed = 1000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=41689181]
+shape = SubResource("CircleShape2D_oduql")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=99101517]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_wsx1l")
+animation = &"idle"
+offset = Vector2(0, -10)
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=1423294252]
+position = Vector2(0, 10)
+target_position = Vector2(20, 0)
+collision_mask = 2
+
+[node name="SightRay" type="RayCast2D" parent="." unique_id=276954356]
+target_position = Vector2(0, -40)
+collision_mask = 2
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=293997183]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=719853348]
+z_index = 1
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_oduql")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1423457521]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=457503273]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_cbqem")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=2106279719]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("16_tpklo")
+
+[node name="GroundRay" type="RayCast2D" parent="." unique_id=113816514]
+z_index = -1
+position = Vector2(0, -20)
+target_position = Vector2(0, 2000)
+collision_mask = 2
+
+[node name="MuzzlePoint1" type="Marker2D" parent="." unique_id=670362672]
+position = Vector2(-16, -2)
+
+[node name="MuzzlePoint2" type="Marker2D" parent="." unique_id=809864415]
+position = Vector2(-12, -3)
+
+[node name="MuzzlePoint3" type="Marker2D" parent="." unique_id=1536366683]
+position = Vector2(-14, 2)
+
+[node name="EdgeCheck" type="RayCast2D" parent="." unique_id=2134260719]
+position = Vector2(0, 20)
+target_position = Vector2(0, 148)
+collision_mask = 2
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
+[connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

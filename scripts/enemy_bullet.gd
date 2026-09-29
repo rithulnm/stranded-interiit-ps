@@ -13,6 +13,7 @@ func setup(dir: Vector2, spd: float, dmg: int, size: float, color: Color) -> voi
 func _ready() -> void:
 	rotation = velocity.angle()
 	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
 
 func _physics_process(delta: float) -> void:
 	position += velocity * delta
@@ -25,4 +26,9 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(damage)
 		queue_free()
 	elif not body.is_in_group("guard"):
+		queue_free()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("pressure_box") and area.has_method("on_hit"):
+		area.on_hit()
 		queue_free()

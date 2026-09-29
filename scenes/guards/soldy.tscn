@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://cj71rs70k7xqh"]
+
+[ext_resource type="Script" uid="uid://v81syc2jq7hp" path="res://scripts/guard_bots/soldy.gd" id="1_djas2"]
+[ext_resource type="Texture2D" uid="uid://bufl7snvhauin" path="res://assets/sprites/bots/soldy/soldyidle1.png" id="1_pyp2i"]
+[ext_resource type="Texture2D" uid="uid://bbktpcj5v65re" path="res://assets/sprites/bots/soldy/soldyidle2.png" id="2_f0xuq"]
+[ext_resource type="Texture2D" uid="uid://dpqx7fwtcjl7s" path="res://assets/sprites/bots/soldy/soldy2.png" id="2_lxk6m"]
+[ext_resource type="PackedScene" uid="uid://dn72gvygxig2u" path="res://scenes/enemy_bullet.tscn" id="2_xo3hs"]
+[ext_resource type="Texture2D" uid="uid://d2bqoppswd8rd" path="res://assets/sprites/bots/soldy/soldyidle3.png" id="3_d1eyt"]
+[ext_resource type="Texture2D" uid="uid://b7f1y4kvfsnxu" path="res://assets/sprites/bots/soldy/soldy3.png" id="3_djas2"]
+[ext_resource type="Texture2D" uid="uid://dptfk76c3su8p" path="res://assets/sprites/bots/soldy/soldyidle4.png" id="4_13btp"]
+[ext_resource type="Texture2D" uid="uid://kvnt0squesny" path="res://assets/sprites/bots/soldy/soldy4.png" id="4_xo3hs"]
+[ext_resource type="Texture2D" uid="uid://yevuvqt7a6qg" path="res://assets/sprites/shadow.png" id="6_xo3hs"]
+[ext_resource type="Texture2D" uid="uid://cyv6aquna2ltq" path="res://assets/sprites/bots/soldy/soldy5.png" id="8_248bd"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_xo3hs"]
+points = PackedVector2Array(0, 72, 71, 42, 75, 1, 50, -35, 0, -45, -50, -25, -68, 5, -69, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wsx1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pyp2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lxk6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_djas2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xo3hs")
+}],
+"loop": false,
+"name": &"deplete",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pyp2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f0xuq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_d1eyt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_13btp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xo3hs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_248bd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_djas2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lxk6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_pyp2i")
+}],
+"loop": false,
+"name": &"refill",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oduql"]
+radius = 848.0
+height = 2574.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cbqem"]
+radius = 82.0975
+
+[node name="Soldy" type="CharacterBody2D" unique_id=1669241884]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_djas2")
+bullet_scene = ExtResource("2_xo3hs")
+patrol_speed = 100.0
+bullet_speed = 1300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=41689181]
+shape = SubResource("ConvexPolygonShape2D_xo3hs")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=99101517]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_wsx1l")
+animation = &"deplete"
+offset = Vector2(0, -10)
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=1423294252]
+position = Vector2(0, 10)
+target_position = Vector2(20, 0)
+collision_mask = 2
+
+[node name="SightRay" type="RayCast2D" parent="." unique_id=276954356]
+target_position = Vector2(0, -40)
+collision_mask = 2
+
+[node name="LedgeCheck" type="RayCast2D" parent="." unique_id=987831966]
+position = Vector2(0, 10)
+collision_mask = 2
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=293997183]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=719853348]
+z_index = 1
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_oduql")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1423457521]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=457503273]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_cbqem")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=2106279719]
+scale = Vector2(3, 3)
+texture = ExtResource("6_xo3hs")
+
+[node name="GroundRay" type="RayCast2D" parent="." unique_id=113816514]
+z_index = -1
+position = Vector2(0, -20)
+target_position = Vector2(0, 2000)
+collision_mask = 2
+
+[node name="MuzzlePoint" type="Marker2D" parent="." unique_id=670362672]
+position = Vector2(-16, -2)
+
+[node name="EdgeCheck" type="RayCast2D" parent="." unique_id=2134260719]
+position = Vector2(0, 20)
+target_position = Vector2(0, 148)
+collision_mask = 2
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
+[connection signal="body_exited" from="DetectionZone" to="." method="_on_detection_zone_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
